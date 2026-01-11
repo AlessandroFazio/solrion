@@ -3,7 +3,7 @@ package com.solrion.core.dsl.builder;
 import com.solrion.core.dsl.Q;
 import com.solrion.core.query.Expr;
 import com.solrion.core.query.ValueModifiers;
-import com.solrion.core.types.Range;
+import com.solrion.core.api.types.Range;
 import com.solrion.core.internal.Validate;
 
 import java.util.Arrays;

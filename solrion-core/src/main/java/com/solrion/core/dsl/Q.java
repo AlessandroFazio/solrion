@@ -3,7 +3,7 @@ package com.solrion.core.dsl;
 import com.solrion.core.dsl.builder.FieldBuilder;
 import com.solrion.core.query.Expr;
 import com.solrion.core.query.ValueModifiers;
-import com.solrion.core.types.Range;
+import com.solrion.core.api.types.Range;
 
 public final class Q {
 

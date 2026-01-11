@@ -2,6 +2,7 @@ package com.solrion.core.internal.protocol.emitter;
 
 import com.solrion.core.api.request.facets.json.*;
 import com.solrion.core.api.request.facets.json.JsonFacetVisitor;
+import com.solrion.core.api.types.JsonFacetType;
 import com.solrion.core.codec.SolrCodec;
 import com.solrion.core.internal.Validate;
 import com.solrion.core.internal.protocol.ParamBag;
@@ -9,12 +10,15 @@ import com.solrion.core.query.SolrDialectTranslator;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Emits "json.facet" parameter from structured JsonFacet models.
  */
 public final class JsonFacetParamsEmitter
-        implements JsonFacetVisitor<Map<String, Object>, Map<String, Object>> {
+        implements JsonFacetVisitor<Object, Map<String, Object>> {
+
+    private static final Set<JsonFacetType> LEAF_FACET_TYPES = Set.of(JsonFacetType.STAT, JsonFacetType.QUERY);
 
     private final SolrDialectTranslator translator;
     private final SolrCodec codec;
@@ -56,7 +60,7 @@ public final class JsonFacetParamsEmitter
     // ------------------------------------------------------------------
 
     @Override
-    public Map<String, Object> visitTerms(JsonTermsFacet f, Map<String, Object> o) {
+    public Object visitTerms(JsonTermsFacet f, Map<String, Object> o) {
         o.put("type", f.type().value());
         o.put("field", f.field());
 
@@ -75,7 +79,7 @@ public final class JsonFacetParamsEmitter
     }
 
     @Override
-    public Map<String, Object> visitRange(JsonRangeFacet f, Map<String, Object> o) {
+    public Object visitRange(JsonRangeFacet f, Map<String, Object> o) {
         o.put("type", f.type().value());
         o.put("field", f.field());
         o.put("start", f.start());
@@ -93,49 +97,36 @@ public final class JsonFacetParamsEmitter
     }
 
     @Override
-    public Map<String, Object> visitQuery(JsonQueryFacet f, Map<String, Object> o) {
-        o.put("type", f.type().value());
-
-        Map<String, String> renderedQueries = new LinkedHashMap<>();
-        f.queries().forEach((name, expr) -> {
-            String q = translator.render(expr);
-            if (!Validate.isBlank(q)) {
-                renderedQueries.put(name, q);
-            }
-        });
-
-        if (!renderedQueries.isEmpty()) {
-            o.put("q", renderedQueries);
+    public Object visitQuery(JsonQueryFacet f, Map<String, Object> o) {
+        if(f.rawOptions().isEmpty()) {
+            return translator.render(f.query());
         }
 
-        emitNestedFacets(f.facets(), o);
-        emitRawOptions(f.rawOptions(), o);
-
-        return o;
-    }
-
-    @Override
-    public Map<String, Object> visitStat(JsonStatFacet f, Map<String, Object> o) {
         o.put("type", f.type().value());
-        o.put("func", f.func());
+
+        String q = translator.render(f.query());
+        o.put("q", q);
 
         emitRawOptions(f.rawOptions(), o);
+
         return o;
     }
 
     @Override
-    public Map<String, Object> visitFunc(JsonFuncFacet f, Map<String, Object> o) {
+    public Object visitStat(JsonStatFacet f, Map<String, Object> o) {
+        if(f.rawOptions().isEmpty()) {
+            return f.stat();
+        }
+
         o.put("type", f.type().value());
-        o.put("func", f.func());
+        o.put("stat", f.stat());
 
-        emitNestedFacets(f.facets(), o);
         emitRawOptions(f.rawOptions(), o);
-
         return o;
     }
 
     @Override
-    public Map<String, Object> visitHeatmap(JsonHeatmapFacet f, Map<String, Object> o) {
+    public Object visitHeatmap(JsonHeatmapFacet f, Map<String, Object> o) {
         o.put("type", f.type().value());
         o.put("field", f.field());
         o.put("geom", f.geom());
@@ -160,9 +151,9 @@ public final class JsonFacetParamsEmitter
         facets.forEach((name, facet) -> {
             if (Validate.isBlank(name) || facet == null) return;
 
-            Map<String, Object> facetObj = new LinkedHashMap<>();
-            facet.accept(this, facetObj);
-            nested.put(name, facetObj);
+            Map<String, Object> facetObj = canInlineFacet(facet) ? new LinkedHashMap<>() : null;
+            Object out = facet.accept(this, facetObj);
+            nested.put(name, out);
         });
 
         if (!nested.isEmpty()) {
@@ -174,5 +165,10 @@ public final class JsonFacetParamsEmitter
         if (raw != null && !raw.isEmpty()) {
             o.putAll(raw);
         }
+    }
+
+    private boolean canInlineFacet(JsonFacet facet) {
+        return LEAF_FACET_TYPES.contains(facet.type())
+                && facet.rawOptions().isEmpty();
     }
 }

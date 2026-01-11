@@ -21,16 +21,16 @@ public class QueryFacet implements ClassicFacet {
         this.localParams = localParams;
     }
 
+    @Override
+    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
+        return visitor.visitQuery(this, ctx);
+    }
+
     public static QueryFacet of(String name, Expr query) {
         return QueryFacet.builder()
                 .name(name)
                 .query(query)
                 .build();
-    }
-
-    @Override
-    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
-        return visitor.visitQuery(this, ctx);
     }
 }
 

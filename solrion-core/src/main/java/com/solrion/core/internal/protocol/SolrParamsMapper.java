@@ -63,7 +63,7 @@ public final class SolrParamsMapper {
             if (req.pagination().rows() != null) p.add("rows", String.valueOf(req.pagination().rows()));
         }
 
-        // response format (wt)
+        // result format (wt)
         if (req.responseFormat() != null) {
             p.add("wt", req.responseFormat().wt());
         }

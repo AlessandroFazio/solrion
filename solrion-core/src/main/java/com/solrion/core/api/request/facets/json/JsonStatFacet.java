@@ -1,17 +1,20 @@
 package com.solrion.core.api.request.facets.json;
 
+import com.solrion.core.api.types.JsonFacetType;
 import com.solrion.core.internal.Validate;
 import lombok.Value;
 import lombok.experimental.Accessors;
 import lombok.Builder;
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Value
 @Accessors(fluent = true)
 public class JsonStatFacet implements JsonFacet {
 
-    String func;
+    String stat;
     Map<String, Object> rawOptions;
 
     @Builder
@@ -19,7 +22,7 @@ public class JsonStatFacet implements JsonFacet {
             String func,
             Map<String, Object> rawOptions
     ) {
-        this.func = Validate.notBlank(func, "func");
+        this.stat = Validate.notBlank(func, "stat");
         this.rawOptions = rawOptions == null ? Map.of() : Map.copyOf(rawOptions);
     }
 
@@ -36,5 +39,9 @@ public class JsonStatFacet implements JsonFacet {
     @Override
     public <R, C> R accept(JsonFacetVisitor<R, C> visitor, C ctx) {
         return visitor.visitStat(this, ctx);
+    }
+
+    public static JsonStatFacet of(String function) {
+        return JsonStatFacet.builder().func(function).build();
     }
 }

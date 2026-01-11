@@ -1,5 +1,6 @@
 package com.solrion.core.internal.protocol.envelope;
 
+import com.solrion.core.api.types.SolrDocument;
 import com.solrion.core.api.request.update.*;
 import com.solrion.core.query.SolrDialectTranslator;
 import com.solrion.core.internal.Validate;

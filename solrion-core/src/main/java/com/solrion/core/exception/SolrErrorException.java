@@ -5,7 +5,7 @@ import com.solrion.core.api.response.SolrError;
 public class SolrErrorException extends SolrException {
 
     public SolrErrorException(SolrError error) {
-        super("Got solr response error set: " + error);
+        super("Got solr result error set: " + error);
     }
 
     @Override

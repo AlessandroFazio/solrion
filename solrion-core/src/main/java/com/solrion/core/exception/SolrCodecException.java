@@ -1,6 +1,4 @@
-package com.solrion.core.internal.exception;
-
-import com.solrion.core.exception.SolrException;
+package com.solrion.core.exception;
 
 public final class SolrCodecException extends SolrException {
 

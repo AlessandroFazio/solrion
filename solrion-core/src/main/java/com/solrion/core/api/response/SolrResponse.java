@@ -7,4 +7,8 @@ public interface SolrResponse {
     default boolean hasError() {
         return error() != null;
     }
+
+    default boolean isSuccess() {
+        return header() != null && header().status() != null && header().status() == 0;
+    }
 }

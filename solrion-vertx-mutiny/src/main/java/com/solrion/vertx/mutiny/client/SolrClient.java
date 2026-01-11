@@ -1,5 +1,6 @@
 package com.solrion.vertx.mutiny.client;
 
+import com.solrion.core.api.types.SolrDocument;
 import com.solrion.vertx.mutiny.api.request.AddDocumentsBatchRequest;
 import com.solrion.vertx.mutiny.api.request.BatchingOptions;
 import com.solrion.vertx.mutiny.api.response.SolrAddBatchResult;

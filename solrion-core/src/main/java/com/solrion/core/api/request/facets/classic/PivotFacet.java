@@ -33,15 +33,15 @@ public class PivotFacet implements ClassicFacet {
         this.localParams = localParams;
     }
 
+    @Override
+    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
+        return visitor.visitPivot(this, ctx);
+    }
+
     public static PivotFacet of(String... fields) {
         return PivotFacet.builder()
                 .fields(List.of(fields))
                 .build();
-    }
-
-    @Override
-    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
-        return visitor.visitPivot(this, ctx);
     }
 }
 

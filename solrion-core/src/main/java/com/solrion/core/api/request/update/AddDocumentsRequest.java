@@ -1,5 +1,6 @@
 package com.solrion.core.api.request.update;
 
+import com.solrion.core.api.types.SolrDocument;
 import com.solrion.core.api.request.SolrRequest;
 import com.solrion.core.client.HttpTransportOptions;
 import com.solrion.core.internal.Validate;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.solrion.core.codec.SolrCodec;
-import com.solrion.core.internal.exception.SolrCodecException;
+import com.solrion.core.exception.SolrCodecException;
 import com.solrion.core.internal.Validate;
 
 import java.util.Objects;

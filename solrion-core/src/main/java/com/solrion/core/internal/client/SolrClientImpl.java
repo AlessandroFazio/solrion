@@ -15,7 +15,7 @@ import com.solrion.core.internal.client.observer.RequestStart;
 import com.solrion.core.client.SolrClientObserver;
 import com.solrion.core.internal.transport.SolrHttpTransport;
 import com.solrion.core.codec.SolrCodec;
-import com.solrion.core.internal.exception.SolrCodecException;
+import com.solrion.core.exception.SolrCodecException;
 import com.solrion.core.exception.SolrErrorException;
 import com.solrion.core.internal.protocol.ParamBag;
 import com.solrion.core.internal.protocol.SolrParamsMapper;
@@ -159,7 +159,7 @@ public final class SolrClientImpl implements SolrClient {
         try {
             return codec.decode(body, SolrUpdateResponse.class);
         } catch (Exception e) {
-            throw new SolrCodecException("Failed decoding Solr perBatchUpdate response", e.getCause());
+            throw new SolrCodecException("Failed decoding Solr perBatchUpdate result", e.getCause());
         }
     }
 
@@ -167,7 +167,7 @@ public final class SolrClientImpl implements SolrClient {
         try {
             return codec.decode(body, SolrSelectResponse.class);
         } catch (Exception e) {
-            throw new SolrCodecException("Failed decoding Solr select response", e.getCause());
+            throw new SolrCodecException("Failed decoding Solr select result", e.getCause());
         }
     }
 

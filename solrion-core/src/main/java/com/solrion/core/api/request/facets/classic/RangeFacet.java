@@ -1,10 +1,10 @@
 package com.solrion.core.api.request.facets.classic;
 
-import com.solrion.core.api.request.facets.RangeInclude;
-import com.solrion.core.api.request.facets.RangeOther;
+import com.solrion.core.api.types.RangeInclude;
+import com.solrion.core.api.types.RangeOther;
 import com.solrion.core.internal.Validate;
 import com.solrion.core.query.Expr;
-import com.solrion.core.types.Range;
+import com.solrion.core.api.types.Range;
 import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.Accessors;
@@ -46,6 +46,11 @@ public class RangeFacet<T extends Comparable<T>> implements ClassicFacet {
         this.localParams = localParams;
     }
 
+    @Override
+    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
+        return visitor.visitRange(this, ctx);
+    }
+
     public static <T extends Comparable<T>> RangeFacet<T> ofField(
             String field,
             Range<T> range,
@@ -70,10 +75,5 @@ public class RangeFacet<T extends Comparable<T>> implements ClassicFacet {
                 .range(range)
                 .gap(gap)
                 .build();
-    }
-
-    @Override
-    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
-        return visitor.visitRange(this, ctx);
     }
 }

@@ -1,5 +1,6 @@
 package com.solrion.core.dsl;
 
+import com.solrion.core.api.types.SolrDocument;
 import com.solrion.core.api.request.update.*;
 import com.solrion.core.dsl.builder.SelectRequestBuilder;
 import com.solrion.core.dsl.builder.UpdateRequestBuilder;
@@ -11,9 +12,9 @@ import java.util.List;
 /**
  * Entry point for building Solr requests in a fluent and structured way.
  */
-public final class SolrRequests {
+public final class RequestBuilders {
 
-    private SolrRequests() {}
+    private RequestBuilders() {}
 
     public static SelectRequestBuilder select() {
         return new SelectRequestBuilder();

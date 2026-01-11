@@ -1,6 +1,6 @@
 package com.solrion.core.query;
 
-import com.solrion.core.types.Range;
+import com.solrion.core.api.types.Range;
 import com.solrion.core.internal.Validate;
 
 import java.util.Collection;

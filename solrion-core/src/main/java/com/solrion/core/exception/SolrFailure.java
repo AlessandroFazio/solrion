@@ -12,7 +12,7 @@ public interface SolrFailure {
         TRANSPORT,        // network, timeout
         HTTP_CLIENT_ERROR,
         HTTP_SERVER_ERROR,
-        SOLR_ERROR,       // error block in response
+        SOLR_ERROR,       // error block in result
         CODEC,
         CLIENT_MISUSE        // invalid usage
     }

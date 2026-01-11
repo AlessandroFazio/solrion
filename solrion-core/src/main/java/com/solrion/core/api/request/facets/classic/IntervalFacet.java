@@ -33,6 +33,11 @@ public class IntervalFacet implements ClassicFacet {
         this.localParams = localParams;
     }
 
+    @Override
+    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
+        return visitor.visitInterval(this, ctx);
+    }
+
     public static IntervalFacet of(
             String field,
             String... intervals
@@ -41,10 +46,5 @@ public class IntervalFacet implements ClassicFacet {
                 .field(field)
                 .intervals(List.of(intervals))
                 .build();
-    }
-
-    @Override
-    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
-        return visitor.visitInterval(this, ctx);
     }
 }

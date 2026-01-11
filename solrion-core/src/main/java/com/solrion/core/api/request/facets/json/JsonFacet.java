@@ -1,5 +1,7 @@
 package com.solrion.core.api.request.facets.json;
 
+import com.solrion.core.api.types.JsonFacetType;
+
 import java.util.Map;
 
 public interface JsonFacet {

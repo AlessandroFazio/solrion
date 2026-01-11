@@ -1,4 +1,4 @@
-package com.solrion.core.types;
+package com.solrion.core.api.types;
 
 import com.solrion.core.internal.Validate;
 

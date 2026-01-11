@@ -1,11 +1,11 @@
-package com.solrion.core.api.request.facets;
+package com.solrion.core.api.types;
 
-public enum RangeOther {
-    BEFORE("before"), AFTER("after"), BETWEEN("between"), ALL("all"), NONE("none");
+public enum RangeInclude {
+    LOWER("lower"), UPPER("upper"), EDGE("edge"), ALL("all");
 
     private final String value;
 
-    RangeOther(String value) {
+    RangeInclude(String value) {
         this.value = value;
     }
 

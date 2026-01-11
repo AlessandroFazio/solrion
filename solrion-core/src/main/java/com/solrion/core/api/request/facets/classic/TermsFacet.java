@@ -73,6 +73,11 @@ public class TermsFacet implements ClassicFacet {
         this.localParams = localParams;
     }
 
+    @Override
+    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
+        return visitor.visitTerms(this, ctx);
+    }
+
     public static TermsFacet ofField(String field) {
         return TermsFacet.builder()
                 .field(field)
@@ -84,10 +89,5 @@ public class TermsFacet implements ClassicFacet {
                 .name(name)
                 .field(field)
                 .build();
-    }
-
-    @Override
-    public <R, C> R accept(ClassicalFacetVisitor<R, C> visitor, C ctx) {
-        return visitor.visitTerms(this, ctx);
     }
 }

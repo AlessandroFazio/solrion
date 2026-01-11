@@ -10,4 +10,9 @@ public record SolrError(
         @JsonProperty("code") Integer code,
         @JsonProperty("metadata") Map<String, Object> metadata,
         @JsonProperty("details") List<String> details
-) {}
+) {
+    public SolrError {
+        metadata = metadata == null ? Map.of() : Map.copyOf(metadata);
+        details = details == null ? List.of() : List.copyOf(details);
+    }
+}

@@ -6,7 +6,7 @@ import io.vertx.mutiny.core.buffer.Buffer;
 import io.vertx.mutiny.ext.web.client.HttpRequest;
 import io.vertx.mutiny.ext.web.client.HttpResponse;
 import io.vertx.mutiny.ext.web.client.WebClient;
-import com.solrion.core.internal.exception.SolrTransportException;
+import com.solrion.core.exception.SolrTransportException;
 import com.solrion.core.internal.protocol.ParamBag;
 import com.solrion.core.internal.Validate;
 import jakarta.ws.rs.core.HttpHeaders;

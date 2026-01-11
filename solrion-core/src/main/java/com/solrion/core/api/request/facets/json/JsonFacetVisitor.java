@@ -10,7 +10,5 @@ public interface JsonFacetVisitor<R, C> {
 
     R visitStat(JsonStatFacet facet, C ctx);
 
-    R visitFunc(JsonFuncFacet facet, C ctx);
-
     R visitHeatmap(JsonHeatmapFacet facet, C ctx);
 }

@@ -1,7 +1,8 @@
 package com.solrion.core.api.request.facets.json;
 
-import com.solrion.core.api.request.facets.RangeInclude;
-import com.solrion.core.api.request.facets.RangeOther;
+import com.solrion.core.api.types.JsonFacetType;
+import com.solrion.core.api.types.RangeInclude;
+import com.solrion.core.api.types.RangeOther;
 import com.solrion.core.internal.Validate;
 import lombok.Value;
 import lombok.experimental.Accessors;

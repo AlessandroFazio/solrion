@@ -2,7 +2,7 @@ package com.solrion.vertx.mutiny.api.request;
 
 import io.smallrye.mutiny.Multi;
 import com.solrion.core.api.request.SolrRequest;
-import com.solrion.core.api.request.update.SolrDocument;
+import com.solrion.core.api.types.SolrDocument;
 import com.solrion.core.api.request.update.UpdateOptions;
 import com.solrion.core.client.HttpTransportOptions;
 import com.solrion.core.internal.Validate;

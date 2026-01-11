@@ -1,5 +1,6 @@
 package com.solrion.core.api.request.facets.json;
 
+import com.solrion.core.api.types.JsonFacetType;
 import com.solrion.core.internal.Validate;
 import com.solrion.core.query.Expr;
 import lombok.Value;
@@ -12,17 +13,17 @@ import java.util.Map;
 @Accessors(fluent = true)
 public class JsonQueryFacet implements JsonFacet {
 
-    Map<String, Expr.BoolExpr> queries;
+    Expr.BoolExpr query;
     Map<String, JsonFacet> facets;
     Map<String, Object> rawOptions;
 
     @Builder
     public JsonQueryFacet(
-            Map<String, Expr.BoolExpr> queries,
+            Expr.BoolExpr query,
             Map<String, JsonFacet> facets,
             Map<String, Object> rawOptions
     ) {
-        this.queries = Validate.notEmpty(queries, "queries");
+        this.query = Validate.notNull(query, "query");
         this.facets = facets == null ? Map.of() : Map.copyOf(facets);
         this.rawOptions = rawOptions == null ? Map.of() : Map.copyOf(rawOptions);
     }

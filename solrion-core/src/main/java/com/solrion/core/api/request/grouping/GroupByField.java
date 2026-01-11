@@ -11,4 +11,12 @@ public record GroupByField(List<String> fields) implements GroupingTarget {
         fields.forEach(f -> Validate.notBlank(f, "field"));
         fields = List.copyOf(fields);
     }
+
+    public static GroupByField of(List<String> fields) {
+        return new GroupByField(fields);
+    }
+
+    public static GroupByField of(String... fields) {
+        return new GroupByField(List.of(fields));
+    }
 }
