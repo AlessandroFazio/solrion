@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Running Spotless apply..."
+./mvnw -q spotless:apply
+
+echo "Running Checkstyle..."
+./mvnw -q checkstyle:check
+
+echo "Pre-commit checks passed"
