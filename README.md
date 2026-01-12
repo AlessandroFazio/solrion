@@ -48,7 +48,7 @@ SelectRequest req = RequestBuilders.select("products")
                 .limit(10)
                 .facets(Map.of(
                     "avg_price",
-                    JsonStatFacet.avg("price")
+                    JsonStatFacet.of(F.avg("price"))
                 ))
                 .build()
         )

@@ -121,12 +121,56 @@ When reporting bugs or requesting features, please include:
 
 --------------------------------------------------------------------
 
-Code style
+## Code style
 
 - Follow existing formatting and naming conventions
 - Use meaningful names for public APIs
 - Avoid introducing breaking changes without discussion
 
---------------------------------------------------------------------
+---
 
-Thank you for contributing to Solrion.
+## 🔧 Git Hooks (Required)
+
+This repository provides local Git hooks to enforce formatting and style checks **before commits are created**.
+
+These hooks ensure that:
+
+- Code is formatted consistently (Spotless)
+- Checkstyle rules are applied early
+- CI failures due to formatting or style violations are avoided
+
+### Installation
+
+After cloning the repository, **you must install the Git hooks once**:
+
+```bash
+./.githooks/install.sh
+```
+
+This script configures Git to use the hooks stored in the `.githooks/` directory by setting:
+
+```
+core.hooksPath=.githooks
+```
+
+### What the hooks do
+
+On `git commit`, the hooks will typically:
+
+- Run `spotless:apply`
+- Run `checkstyle`
+- Fail the commit if violations are detected
+
+You may need to fix formatting issues and re-commit.
+
+### Notes
+
+- Hooks are **local to your clone** and are **not automatically enabled by Git**
+- You only need to run the installation script once per clone
+- Hooks use the **Maven Wrapper (`./mvnw`)**, so no system Maven installation is required
+
+⚠️ Commits that bypass these hooks (for example using `--no-verify`) may be rejected during code review or CI.
+
+---
+
+Thank you for helping make **Solrion** better.
