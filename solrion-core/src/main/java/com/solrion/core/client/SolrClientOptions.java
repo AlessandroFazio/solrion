@@ -1,6 +1,7 @@
 package com.solrion.core.client;
 
 import com.solrion.core.codec.SolrCodec;
+import java.util.Optional;
 import lombok.Builder;
 import lombok.Value;
 import lombok.experimental.Accessors;
@@ -23,6 +24,12 @@ public class SolrClientOptions {
   @Builder.Default boolean selectPostFormOnThresholdExceeded = false;
 
   @Builder.Default int selectPostFormThresholdBytes = 2000;
+
+  PathResolver pathResolver;
+
+  public Optional<PathResolver> pathResolver() {
+    return Optional.ofNullable(pathResolver);
+  }
 
   public static SolrClientOptions defaultOptions() {
     return SolrClientOptions.builder().build();

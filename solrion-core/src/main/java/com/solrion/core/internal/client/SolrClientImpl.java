@@ -159,8 +159,12 @@ public final class SolrClientImpl implements SolrClient {
   }
 
   private String buildHttpPath(String collection, ClientOperation op) {
-    return String.format(
-        "%s/%s/%s", clientOptions.basePath(), collection, HttpAdapter.toPathSegment(op));
+    return clientOptions
+        .pathResolver()
+        .map(resolver -> resolver.resolve(clientOptions.basePath(), collection, op))
+        .orElse(
+            String.format(
+                "%s/%s/%s", clientOptions.basePath(), collection, HttpAdapter.toPathSegment(op)));
   }
 
   private SolrUpdateResponse decodeUpdate(String body) {
